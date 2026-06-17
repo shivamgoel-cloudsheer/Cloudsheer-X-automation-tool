@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cloudsheer X - post queue preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="icon" href="logo.png" />
+    <style>body { background: #f8fafc; color: #0f172a; -webkit-font-smoothing: antialiased; }</style>
+  </head>
+  <body class="min-h-full">
+    <div class="bg-slate-900 px-4 py-2 text-center text-xs text-slate-300">
+      Static preview &middot; sample data. The real queue polls every 5s and posts via the X API.
+    </div>
+
+    <header class="border-b border-slate-200 bg-white">
+      <div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-3.5">
+        <a href="index.html" class="flex items-center gap-2.5">
+          <img src="logo.png" alt="Cloudsheer" class="h-7 w-auto" />
+          <span class="text-sm font-semibold text-slate-400">X</span>
+        </a>
+        <nav class="flex items-center gap-5 text-sm font-medium text-slate-600">
+          <a href="index.html" class="hover:text-slate-900">Overview</a>
+          <a href="posts.html" class="text-slate-900">Queue</a>
+          <a href="new.html" class="rounded-lg bg-gradient-to-br from-sky-500 to-indigo-600 px-3 py-1.5 text-white shadow-sm hover:brightness-110">New voice</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="mx-auto w-full max-w-5xl px-6 py-8 space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <h1 class="text-xl font-semibold text-slate-900">Post queue</h1>
+        <div class="flex gap-2 text-xs text-slate-500">
+          <span class="rounded-full bg-white px-2.5 py-1 ring-1 ring-slate-200"><span class="font-semibold text-slate-700">4/17</span> today</span>
+          <span class="rounded-full bg-white px-2.5 py-1 ring-1 ring-slate-200"><span class="font-semibold text-slate-700">6</span> scheduled</span>
+          <span class="rounded-full bg-white px-2.5 py-1 ring-1 ring-slate-200"><span class="font-semibold text-slate-700">3</span> drafts</span>
+          <span class="rounded-full bg-white px-2.5 py-1 ring-1 ring-slate-200"><span class="font-semibold text-slate-700">12</span> posted</span>
+        </div>
+      </div>
+
+      <ul class="space-y-2.5">
+        <!-- scheduled -->
+        <li class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+          <p class="whitespace-pre-wrap text-sm text-slate-800">Agentforce isn't "chatbots with a new name." The difference is the action layer - it can actually execute the workflow, not just describe it. That gap is where most CRM AI quietly dies.</p>
+          <div class="mt-2 flex flex-wrap items-center gap-2 text-xs text-slate-400">
+            <span class="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-medium text-amber-700 ring-1 ring-inset ring-amber-200">scheduled</span>
+            <span>&middot; Agentforce launch coverage</span>
+            <span>&middot; for 2:40 PM</span>
+            <span>&middot; 188 chars</span>
+          </div>
+          <div class="mt-2.5 flex flex-wrap items-center gap-1.5">
+            <button class="inline-flex items-center gap-1 rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50"><i data-lucide="x" class="h-3.5 w-3.5"></i> Cancel</button>
+            <button class="inline-flex items-center gap-1 rounded-lg border border-red-200 px-2.5 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50"><i data-lucide="trash-2" class="h-3.5 w-3.5"></i> Delete</button>
+          </div>
+        </li>
+
+        <!-- posted -->
+        <li class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+          <div class="flex items-start justify-between gap-3">
+            <div class="min-w-0 flex-1">
+              <p class="whitespace-pre-wrap text-sm text-slate-800">Everyone wants an AI roadmap. Almost nobody wants to clean their data first. The boring 80% is the roadmap.</p>
+              <div class="mt-2 flex flex-wrap items-center gap-2 text-xs text-slate-400">
+                <span class="inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-200">posted</span>
+                <span>&middot; Enterprise AI adoption</span>
+                <span>&middot; at 9:12 AM</span>
+                <span>&middot; 104 chars</span>
+              </div>
+            </div>
+            <a href="#" class="inline-flex shrink-0 items-center gap-1 text-xs font-medium text-emerald-700 hover:underline">View <i data-lucide="external-link" class="h-3 w-3"></i></a>
+          </div>
+        </li>
+
+        <!-- draft -->
+        <li class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+          <p class="whitespace-pre-wrap text-sm text-slate-800">The fastest way to lose trust in an AI feature: let it act confidently on stale data. Freshness is a safety feature, not a nice-to-have.</p>
+          <div class="mt-2 flex flex-wrap items-center gap-2 text-xs text-slate-400">
+            <span class="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-200">draft</span>
+            <span>&middot; Data quality &amp; AI</span>
+            <span>&middot; 134 chars</span>
+          </div>
+          <div class="mt-2.5 flex flex-wrap items-center gap-1.5">
+            <button class="inline-flex items-center gap-1 rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50"><i data-lucide="calendar-clock" class="h-3.5 w-3.5"></i> Schedule</button>
+            <button class="inline-flex items-center gap-1 rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50"><i data-lucide="pencil" class="h-3.5 w-3.5"></i> Edit</button>
+            <button class="inline-flex items-center gap-1 rounded-lg border border-red-200 px-2.5 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50"><i data-lucide="trash-2" class="h-3.5 w-3.5"></i> Delete</button>
+          </div>
+        </li>
+
+        <!-- failed -->
+        <li class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+          <p class="whitespace-pre-wrap text-sm text-slate-800">Shipping an AI agent into prod without an eval harness is just vibes with a billing meter attached.</p>
+          <div class="mt-2 flex flex-wrap items-center gap-2 text-xs text-slate-400">
+            <span class="inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-medium text-red-600 ring-1 ring-inset ring-red-200">failed</span>
+            <span>&middot; AI evals</span>
+            <span>&middot; 96 chars</span>
+          </div>
+          <p class="mt-1.5 text-xs text-red-600">X rejected the post (403): duplicate content</p>
+          <div class="mt-2.5 flex flex-wrap items-center gap-1.5">
+            <button class="inline-flex items-center gap-1 rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50"><i data-lucide="pencil" class="h-3.5 w-3.5"></i> Back to draft</button>
+            <button class="inline-flex items-center gap-1 rounded-lg border border-red-200 px-2.5 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50"><i data-lucide="trash-2" class="h-3.5 w-3.5"></i> Delete</button>
+          </div>
+        </li>
+      </ul>
+    </main>
+
+    <script>lucide.createIcons();</script>
+  </body>
+</html>

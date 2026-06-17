@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cloudsheer X - new voice preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="icon" href="logo.png" />
+    <style>body { background: #f8fafc; color: #0f172a; -webkit-font-smoothing: antialiased; }</style>
+  </head>
+  <body class="min-h-full">
+    <div class="bg-slate-900 px-4 py-2 text-center text-xs text-slate-300">
+      Static preview &middot; sample data. In the real app this analyzes the pasted posts with Claude and saves the voice.
+    </div>
+
+    <header class="border-b border-slate-200 bg-white">
+      <div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-3.5">
+        <a href="index.html" class="flex items-center gap-2.5">
+          <img src="logo.png" alt="Cloudsheer" class="h-7 w-auto" />
+          <span class="text-sm font-semibold text-slate-400">X</span>
+        </a>
+        <nav class="flex items-center gap-5 text-sm font-medium text-slate-600">
+          <a href="index.html" class="hover:text-slate-900">Overview</a>
+          <a href="posts.html" class="hover:text-slate-900">Queue</a>
+          <a href="new.html" class="rounded-lg bg-gradient-to-br from-sky-500 to-indigo-600 px-3 py-1.5 text-white shadow-sm hover:brightness-110">New voice</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="mx-auto w-full max-w-2xl px-6 py-8 space-y-6">
+      <a href="index.html" class="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800"><i data-lucide="arrow-left" class="h-4 w-4"></i> Back</a>
+
+      <div>
+        <h1 class="text-xl font-semibold text-slate-900">Create a voice</h1>
+        <p class="mt-1 text-sm text-slate-500">Paste 50-100 posts from the influencer you want to sound like. Claude analyzes the style once and reuses it for every post.</p>
+      </div>
+
+      <form class="space-y-4" onsubmit="return false">
+        <div>
+          <label class="mb-1 block text-sm font-medium text-slate-700">Name</label>
+          <input value="Salesforce thought-leader voice" class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900" />
+        </div>
+        <div>
+          <label class="mb-1 block text-sm font-medium text-slate-700">Niche / topic area</label>
+          <input value="Salesforce, Agentforce, AI for enterprise CRM" class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900" />
+          <p class="mt-1 text-xs text-slate-400">Used to pull trending topics each day.</p>
+        </div>
+        <div>
+          <label class="mb-1 block text-sm font-medium text-slate-700">Example posts</label>
+          <textarea rows="8" class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 font-mono text-xs text-slate-900">The best CRM AI feels boring. It just does the thing.
+
+Most "AI strategy" decks are a data-cleanup project wearing a costume.
+
+Agentforce is interesting because the action layer is the product, not the chat.</textarea>
+        </div>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div>
+            <label class="mb-1 block text-sm font-medium text-slate-700">Model</label>
+            <select class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900">
+              <option>Haiku 4.5 (cheapest)</option>
+              <option>Opus 4.8 (stronger)</option>
+              <option>Fable 5 (best voice)</option>
+            </select>
+          </div>
+          <div>
+            <label class="mb-1 block text-sm font-medium text-slate-700">Posts per day</label>
+            <input type="number" value="3" class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900" />
+          </div>
+        </div>
+        <label class="flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-4">
+          <input type="checkbox" checked class="mt-0.5 h-4 w-4" />
+          <span class="text-sm">
+            <span class="font-medium text-slate-900">Post autonomously</span>
+            <span class="block text-xs text-slate-500">When on, posts are generated and published on schedule with no review. Turn off to send drafts to the queue for approval first.</span>
+          </span>
+        </label>
+        <button class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 hover:brightness-110">
+          <i data-lucide="wand-2" class="h-4 w-4"></i> Analyze &amp; create
+        </button>
+      </form>
+    </main>
+
+    <script>lucide.createIcons();</script>
+  </body>
+</html>

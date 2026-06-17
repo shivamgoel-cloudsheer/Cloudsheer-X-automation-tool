@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cloudsheer X - voice preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="icon" href="logo.png" />
+    <style>body { background: #f8fafc; color: #0f172a; -webkit-font-smoothing: antialiased; }</style>
+  </head>
+  <body class="min-h-full">
+    <div class="bg-slate-900 px-4 py-2 text-center text-xs text-slate-300">
+      Static preview &middot; sample data. The "Generate draft now" button hits Claude in the real app.
+    </div>
+
+    <header class="border-b border-slate-200 bg-white">
+      <div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-3.5">
+        <a href="index.html" class="flex items-center gap-2.5">
+          <img src="logo.png" alt="Cloudsheer" class="h-7 w-auto" />
+          <span class="text-sm font-semibold text-slate-400">X</span>
+        </a>
+        <nav class="flex items-center gap-5 text-sm font-medium text-slate-600">
+          <a href="index.html" class="hover:text-slate-900">Overview</a>
+          <a href="posts.html" class="hover:text-slate-900">Queue</a>
+          <a href="new.html" class="rounded-lg bg-gradient-to-br from-sky-500 to-indigo-600 px-3 py-1.5 text-white shadow-sm hover:brightness-110">New voice</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="mx-auto w-full max-w-2xl px-6 py-8 space-y-6">
+      <a href="index.html" class="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800"><i data-lucide="arrow-left" class="h-4 w-4"></i> Back</a>
+
+      <div class="flex items-start justify-between">
+        <div>
+          <h1 class="text-xl font-semibold text-slate-900">Salesforce thought-leader voice</h1>
+          <p class="mt-1 text-sm text-slate-500">Salesforce, Agentforce, AI for enterprise CRM</p>
+        </div>
+        <button class="inline-flex items-center gap-1.5 rounded-lg border border-red-200 px-2.5 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50"><i data-lucide="trash-2" class="h-3.5 w-3.5"></i> Delete</button>
+      </div>
+
+      <!-- controls -->
+      <div class="space-y-4 rounded-2xl border border-slate-200 bg-white p-5">
+        <label class="flex items-center justify-between">
+          <span class="text-sm font-medium text-slate-800">Post autonomously
+            <span class="block text-xs font-normal text-slate-500">Generate and publish on schedule without review.</span>
+          </span>
+          <input type="checkbox" checked class="h-5 w-5" />
+        </label>
+        <div class="flex items-center justify-between border-t border-slate-100 pt-4">
+          <span class="text-sm font-medium text-slate-800">Posts per day</span>
+          <input type="number" value="3" class="w-20 rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm" />
+        </div>
+        <div class="flex items-center justify-between gap-3 border-t border-slate-100 pt-4">
+          <button class="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-br from-sky-500 to-indigo-600 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:brightness-110">
+            <i data-lucide="sparkles" class="h-3.5 w-3.5"></i> Generate draft now
+          </button>
+        </div>
+      </div>
+
+      <!-- learned style -->
+      <div class="space-y-3 rounded-2xl border border-slate-200 bg-white p-5">
+        <h2 class="text-sm font-semibold text-slate-900">Learned style</h2>
+        <div class="grid grid-cols-[7rem_1fr] gap-3 text-sm"><span class="text-slate-400">Voice</span><span class="text-slate-700">Confident, plain-spoken practitioner. Contrarian but not edgy. Short declarative takes that reframe a hype topic around what actually ships.</span></div>
+        <div class="grid grid-cols-[7rem_1fr] gap-3 text-sm"><span class="text-slate-400">Sentences</span><span class="text-slate-700">Short. Often two beats: a setup line, then a sharp turn. Minimal punctuation, no semicolons.</span></div>
+        <div class="grid grid-cols-[7rem_1fr] gap-3 text-sm"><span class="text-slate-400">Emoji</span><span class="text-slate-700">None.</span></div>
+        <div class="grid grid-cols-[7rem_1fr] gap-3 text-sm"><span class="text-slate-400">Hashtags</span><span class="text-slate-700">None.</span></div>
+        <div class="grid grid-cols-[7rem_1fr] gap-3 text-sm"><span class="text-slate-400">Vocabulary</span><span class="text-slate-700">action layer, ships, boring, the thing, costume, in prod</span></div>
+        <div class="grid grid-cols-[7rem_1fr] gap-3 text-sm"><span class="text-slate-400">Avoids</span><span class="text-slate-700">hype adjectives; threads; emoji; em-dashes</span></div>
+      </div>
+    </main>
+
+    <script>lucide.createIcons();</script>
+  </body>
+</html>
