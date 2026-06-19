@@ -10,6 +10,19 @@ import {
 } from "drizzle-orm/pg-core";
 
 // ---------------------------------------------------------------------------
+// Team members. Shared workspace: everyone who signs up sees the same voices,
+// posts, and the single connected X account. Signup is gated by an invite code
+// (SIGNUP_CODE), so this table only ever holds approved teammates.
+// ---------------------------------------------------------------------------
+export const users = pgTable("app_user", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  email: text("email").notNull().unique(),
+  // scrypt hash, stored as "salt:hash"
+  passwordHash: text("password_hash").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// ---------------------------------------------------------------------------
 // Single connected X (Twitter) account. Exactly one row, id = "default".
 // Holds the OAuth 2.0 user-context tokens; refreshed in place by x-auth.ts.
 // ---------------------------------------------------------------------------

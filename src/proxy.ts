@@ -1,26 +1,25 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { GATE_COOKIE, gateToken } from "@/lib/gate";
+import { SESSION_COOKIE, verifySessionToken } from "@/lib/session";
 
 export function proxy(request: NextRequest) {
-  // Site-wide password gate. This is the only auth: the tool drives a single
-  // X account, so there is no per-user login.
-  if (process.env.ACCESS_PASSWORD) {
-    const token = request.cookies.get(GATE_COOKIE)?.value;
-    if (token !== gateToken()) {
-      return NextResponse.redirect(new URL("/gate", request.url));
-    }
+  const { pathname } = request.nextUrl;
+
+  // Public marketing landing page.
+  if (pathname === "/") return NextResponse.next();
+
+  // Everything else the matcher lets through requires a logged-in teammate.
+  const token = request.cookies.get(SESSION_COOKIE)?.value;
+  if (!verifySessionToken(token)) {
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  // Everything EXCEPT routes external systems must reach without the gate:
-  // - /api/process  (daily Vercel cron, guarded by CRON_SECRET)
-  // - /api/dispatch (10-min external cron, guarded by CRON_SECRET)
-  // - /api/x/callback (X redirects the browser back here mid-OAuth)
-  // - /gate (the password form itself), Next assets, favicon
+  // Skip auth pages + auth API, cron endpoints, the X OAuth callback, the
+  // public logo, and Next internals; the rest is gated by the session above.
   matcher: [
-    "/((?!gate|api/process|api/dispatch|api/x/callback|_next/|favicon\\.ico).*)",
+    "/((?!login|signup|api/auth|api/process|api/dispatch|api/x/callback|_next/|favicon\\.ico|logo\\.png).*)",
   ],
 };

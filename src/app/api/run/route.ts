@@ -3,7 +3,7 @@ import { dispatchDue } from "@/lib/dispatch";
 
 export const maxDuration = 300;
 
-// Manual trigger from the dashboard (behind the password gate). Used to test
+// Manual trigger from the dashboard (behind the session login). Used to test
 // the loop without waiting for cron.
 //   action "dispatch" (default): publish anything already due.
 //   action "process": generate + schedule from trends, then dispatch.

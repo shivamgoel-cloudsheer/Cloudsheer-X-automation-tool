@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/ui";
+import { LogoutButton } from "@/components/LogoutButton";
 
 export default function DashboardLayout({
   children,
@@ -27,6 +28,7 @@ export default function DashboardLayout({
             >
               New voice
             </Link>
+            <LogoutButton />
           </nav>
         </div>
       </header>
