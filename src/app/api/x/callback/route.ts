@@ -20,7 +20,9 @@ export async function GET(request: Request) {
 
   try {
     await exchangeCode({ code, codeVerifier: verifier });
-  } catch {
+  } catch (err) {
+    // Surface token-exchange failures in Vercel logs instead of a blank error.
+    console.error("X OAuth callback (token exchange) failed:", err);
     return NextResponse.redirect(new URL("/dashboard?x=error", base));
   }
 

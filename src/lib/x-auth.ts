@@ -51,6 +51,10 @@ export function buildAuthLink(): { url: string; state: string; codeVerifier: str
     "code_challenge_method=s256",
     "code_challenge_method=S256"
   );
+  // Guard against a future twitter-api-v2 change silently reverting the casing.
+  if (!fixedUrl.includes("code_challenge_method=S256")) {
+    throw new Error("X authorize URL is missing the required S256 PKCE method.");
+  }
   return { url: fixedUrl, state, codeVerifier };
 }
 
