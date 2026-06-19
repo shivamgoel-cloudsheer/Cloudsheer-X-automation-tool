@@ -139,3 +139,23 @@ export const postLog = pgTable(
   },
   (t) => [index("post_log_posted_idx").on(t.postedAt)]
 );
+
+// ---------------------------------------------------------------------------
+// Historical tweets imported from the user's X data archive (tweets.js). The
+// free X API is write-only, so this is the only way to bring in past posts and
+// their engagement. Keyed by the X tweet id so re-imports upsert (no dupes).
+// Engagement = likes + retweets (replies/impressions are not in the archive).
+// ---------------------------------------------------------------------------
+export const importedTweets = pgTable(
+  "imported_tweet",
+  {
+    id: text("id").primaryKey(), // X tweet id_str
+    text: text("text").notNull(),
+    createdAt: timestamp("created_at").notNull(),
+    likes: integer("likes").notNull().default(0),
+    retweets: integer("retweets").notNull().default(0),
+    isReply: boolean("is_reply").notNull().default(false),
+    importedAt: timestamp("imported_at").notNull().defaultNow(),
+  },
+  (t) => [index("imported_tweet_created_idx").on(t.createdAt)]
+);

@@ -1,6 +1,6 @@
-import { count, sql } from "drizzle-orm";
+import { count, desc, sql } from "drizzle-orm";
 import { db } from "@/db";
-import { posts, postLog, styleProfiles } from "@/db/schema";
+import { posts, postLog, styleProfiles, importedTweets } from "@/db/schema";
 
 // All analytics come from our own DB. The X free tier is write-only, so we
 // cannot read engagement (likes, impressions, replies) - these metrics are
@@ -79,6 +79,40 @@ export async function GET() {
   }
   const voices = profs.map((p) => ({ name: p.name, ...(aggByPid.get(p.id) ?? empty()) }));
 
+  // Imported account history (from the X archive). Engagement = likes + RTs.
+  const [histAggRows, topPosts, monthlyRows] = await Promise.all([
+    db.execute<{ n: string; likes: string; retweets: string }>(sql`
+      SELECT count(*)::text n, coalesce(sum(likes),0)::text likes, coalesce(sum(retweets),0)::text retweets
+      FROM imported_tweet
+    `),
+    db
+      .select({
+        text: importedTweets.text,
+        likes: importedTweets.likes,
+        retweets: importedTweets.retweets,
+        createdAt: importedTweets.createdAt,
+      })
+      .from(importedTweets)
+      .orderBy(desc(importedTweets.likes))
+      .limit(5),
+    db.execute<{ m: string; n: string; likes: string }>(sql`
+      SELECT to_char(created_at,'YYYY-MM') m, count(*)::text n, coalesce(sum(likes),0)::text likes
+      FROM imported_tweet GROUP BY 1 ORDER BY 1
+    `),
+  ]);
+  const h = histAggRows.rows[0] ?? { n: "0", likes: "0", retweets: "0" };
+  const history = {
+    count: Number(h.n),
+    likes: Number(h.likes),
+    retweets: Number(h.retweets),
+    top: topPosts,
+    monthly: monthlyRows.rows.map((r) => ({
+      month: r.m,
+      count: Number(r.n),
+      likes: Number(r.likes),
+    })),
+  };
+
   return Response.json({
     usage: {
       today: Number(todayRow[0].v),
@@ -90,5 +124,6 @@ export async function GET() {
     byStatus,
     daily,
     voices,
+    history,
   });
 }

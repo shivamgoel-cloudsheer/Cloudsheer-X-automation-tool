@@ -10,6 +10,9 @@ import {
   CalendarClock,
   PenLine,
   XCircle,
+  History,
+  Heart,
+  Repeat2,
 } from "lucide-react";
 
 type Analytics = {
@@ -30,6 +33,13 @@ type Analytics = {
     failed: number;
     total: number;
   }[];
+  history: {
+    count: number;
+    likes: number;
+    retweets: number;
+    top: { text: string; likes: number; retweets: number; createdAt: string }[];
+    monthly: { month: string; count: number; likes: number }[];
+  };
 };
 
 export default function AnalyticsPage() {
@@ -55,8 +65,12 @@ export default function AnalyticsPage() {
     );
   }
 
-  const { usage, byStatus, daily, voices } = data;
+  const { usage, byStatus, daily, voices, history } = data;
   const maxDay = Math.max(1, ...daily.map((d) => d.count));
+  const avgLikes =
+    history.count > 0
+      ? Math.round((history.likes / history.count) * 10) / 10
+      : 0;
 
   return (
     <div className="space-y-7">
@@ -156,6 +170,62 @@ export default function AnalyticsPage() {
           Posts published per day (UTC). Bars are empty until your first post
           goes out.
         </p>
+      </section>
+
+      {/* Account history (imported from X archive) */}
+      <section className="space-y-3">
+        <div className="flex items-center justify-between">
+          <h2 className="text-sm font-semibold text-slate-900">
+            Account history
+          </h2>
+          <Link
+            href="/dashboard/import"
+            className="text-xs font-medium text-indigo-600 hover:underline"
+          >
+            {history.count > 0 ? "Re-import / refresh" : "Import past tweets"}
+          </Link>
+        </div>
+        {history.count === 0 ? (
+          <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-5 py-8 text-center text-sm text-slate-600">
+            No history imported yet.{" "}
+            <Link
+              href="/dashboard/import"
+              className="font-medium text-indigo-600 underline"
+            >
+              Import your X archive
+            </Link>{" "}
+            to see past posts, likes, and retweets.
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              <Stat label="Past tweets" value={history.count} icon={<History size={15} />} tone="slate" />
+              <Stat label="Total likes" value={history.likes} icon={<Heart size={15} />} tone="red" />
+              <Stat label="Total retweets" value={history.retweets} icon={<Repeat2 size={15} />} tone="emerald" />
+              <Stat label="Avg likes / tweet" value={avgLikes} icon={<Heart size={15} />} tone="amber" />
+            </div>
+            {history.top.length > 0 && (
+              <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+                <p className="border-b border-slate-100 px-4 py-2.5 text-xs font-medium text-slate-400">
+                  Top posts by likes
+                </p>
+                <ul className="divide-y divide-slate-100">
+                  {history.top.map((p, i) => (
+                    <li
+                      key={i}
+                      className="flex items-start justify-between gap-3 px-4 py-3"
+                    >
+                      <p className="line-clamp-2 text-sm text-slate-700">{p.text}</p>
+                      <span className="shrink-0 whitespace-nowrap text-xs text-slate-500">
+                        {p.likes} likes &middot; {p.retweets} RT
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </>
+        )}
       </section>
 
       {/* Per-voice */}
