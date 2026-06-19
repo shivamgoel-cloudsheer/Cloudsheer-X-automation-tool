@@ -22,6 +22,9 @@ export default function DashboardLayout({
             <Link href="/dashboard/posts" className="hover:text-slate-900">
               Queue
             </Link>
+            <Link href="/dashboard/analytics" className="hover:text-slate-900">
+              Analytics
+            </Link>
             <Link
               href="/dashboard/profiles/new"
               className="rounded-lg bg-linear-to-br from-sky-500 to-indigo-600 px-3 py-1.5 text-white shadow-sm transition hover:brightness-110"
