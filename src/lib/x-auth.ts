@@ -44,7 +44,14 @@ export function buildAuthLink(): { url: string; state: string; codeVerifier: str
     callbackUrl(),
     { scope: [...X_SCOPES] }
   );
-  return { url, state, codeVerifier };
+  // twitter-api-v2 emits the PKCE method lowercase ("s256"); OAuth 2.0 / RFC
+  // 7636 and X require uppercase "S256". X rejects the lowercase form with
+  // "You weren't able to give access to the App", so normalize it here.
+  const fixedUrl = url.replace(
+    "code_challenge_method=s256",
+    "code_challenge_method=S256"
+  );
+  return { url: fixedUrl, state, codeVerifier };
 }
 
 /** Step 2 of connect: exchange the code for tokens, confirm the account, and
